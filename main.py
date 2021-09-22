@@ -4,6 +4,9 @@ import alpaca_trade_api as tradeapi
 import requests
 import json
 from commands import *
+import pymongo 
+import flask
+
 
 #Conexion a API Alpaca
 
@@ -16,6 +19,15 @@ PORTFOLIO_URL = '{}/v2/account/portfolio/history'.format(BASE_URL)
 ORDERS_URL = '{}/v2/orders'.format(BASE_URL)
 HEADERS = {'APCA-API-KEY-ID':API_KEY, 'APCA-API-SECRET-KEY': SECRET_KEY}
 
+#Conexion MongoDB
+
+mongodbPassword = os.getenv('mongodbPassword')
+# Defines a new client.
+client = pymongo.MongoClient("mongodb+srv://kenha:{}@cluster0.46tv4.mongodb.net/DogeTradeBot?retryWrites=true&w=majority".format(mongodbPassword))
+
+# Get the database (database name by default is "test")
+db = client.db_name # OR db = client.test
+print(db)
 
 #Conexion a discord
 client = discord.Client()
@@ -84,5 +96,4 @@ async def on_message(message):
 
 client.run(os.getenv('token'))
 
-kyubi = 'ewdyewdcucu3c3rucu3rcvu3rlcvir3locirvieuvceuvcl ewruvclierulvicuelverlvulurlver.2jvjerl.ovi2eoi oje2jkc32ilcuv2lvolvrvjcr42ocilocil2vcer,corivoijecfk je uerivpie4ec jekf efezrwuiele je e fe ej l€j lej lefl oviwkchewkcerwcjcczxwexhe3c,kxewrclr3cjr3lcjxbwe   cnccr3crk3elcker3kic.'
 
