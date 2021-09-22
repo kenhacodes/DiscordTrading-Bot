@@ -3,7 +3,7 @@ import os
 import alpaca_trade_api as tradeapi
 import requests
 import json
-
+from commands import *
 
 #Conexion a API Alpaca
 
@@ -47,8 +47,22 @@ def get_orders():
   return json.loads(r.content)
 
 orders = get_orders()
-print('Pendent orders: ')
-print(orders)
+
+def print_orders():
+  print('Pendent orders: ')
+  for order in orders:
+    r = orders[0].get('symbol')    
+    print(r)
+    r = orders[0].get('qty')
+    print(r)
+    r= orders[0].get('side')
+    print(r)
+    print('..........')
+print_orders()
+
+#Admin Permissions
+admin = 'KenHa#5259'
+not_admin = 'You are not an admin'
 
 #Comando de prueba de mensaje
 @client.event
@@ -59,5 +73,16 @@ async def on_message(message):
     response = create_order('AAPL', 100, 'buy', 'market', 'gtc')
     print (response)
     await message.channel.send(response)
+  if message.content.startswith('%print_orders'):
+    if str(message.author) == admin:
+      print_orders()
+      print('Done!')
+      await message.channel.send('Done! Woof!')
+    else:
+      await message.channel.send(not_admin)
+      print('{} tried to do a admin command!'.format(message.author))
 
 client.run(os.getenv('token'))
+
+kyubi = 'ewdyewdcucu3c3rucu3rcvu3rlcvir3locirvieuvceuvcl ewruvclierulvicuelverlvulurlver.2jvjerl.ovi2eoi oje2jkc32ilcuv2lvolvrvjcr42ocilocil2vcer,corivoijecfk je uerivpie4ec jekf efezrwuiele je e fe ej l€j lej lefl oviwkchewkcerwcjcczxwexhe3c,kxewrclr3cjr3lcjxbwe   cnccr3crk3elcker3kic.'
+
