@@ -36,6 +36,8 @@ async def on_ready():
   print('Woof! {0.user} is on!'.format(client))
 
 #Funciones prueba API Alpaca
+
+#Devuelve info cuenta
 def get_account():
   r = requests.get(ACCOUNT_URL, headers=HEADERS)
   return json.loads(r.content)
@@ -43,6 +45,7 @@ def get_account():
 status=get_account().get('status')
 print (status)
 
+#Hace una compra de prueba a apple
 def create_order(symbol, qty, side, type, time_in_force):
   data = {
     'symbol': symbol,
@@ -54,12 +57,14 @@ def create_order(symbol, qty, side, type, time_in_force):
   r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
   return json.loads(r.content)
 
+#Devuelve las ordenes
 def get_orders():
   r = requests.get(ORDERS_URL, headers=HEADERS)
   return json.loads(r.content)
 
 orders = get_orders()
 
+#Imprime las ordenes pendientes
 def print_orders():
   print('Pendent orders: ')
   for order in orders:
@@ -93,6 +98,7 @@ async def on_message(message):
     else:
       await message.channel.send(not_admin)
       print('{} tried to do a admin command!'.format(message.author))
+  
 
 client.run(os.getenv('token'))
 
