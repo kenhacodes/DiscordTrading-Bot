@@ -94,6 +94,7 @@ async def on_message(message):
     if str(message.author) == admin:
       print_orders()
       print('Done!')
+      print(message.author.id)
       await message.channel.send('Done! Woof!')
     else:
       await message.channel.send(not_admin)
