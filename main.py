@@ -8,8 +8,6 @@ import pymongo
 import flask
 
 
-#Comentario de prueba
-
 #Conexion a API Alpaca
 
 API_KEY = os.getenv('paperAlpacaKey')
@@ -86,21 +84,32 @@ not_admin = 'You are not an admin'
 #Comando de prueba de mensaje
 @client.event
 async def on_message(message):
+  
   if message.author == client.user:
     return
+
+  #Variables generales para funciones
+  name = message.author
+  idUser = message.author.id
+  
   if message.content.startswith('%hello'):
     response = create_order('AAPL', 100, 'buy', 'market', 'gtc')
     print (response)
     await message.channel.send(response)
   if message.content.startswith('%print_orders'):
     if str(message.author) == admin:
+      #Print las ordenes pendientes
       print_orders()
       print('Done!')
-      print(message.author.id)
+      #Print los datos del usuario que escribio
+      user_data = get_User(name, idUser)
+      print (user_data)
+      #Respuesta del bot
       await message.channel.send('Done! Woof!')
     else:
       await message.channel.send(not_admin)
       print('{} tried to do a admin command!'.format(message.author))
+  
   
 
 client.run(os.getenv('token'))

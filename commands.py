@@ -9,16 +9,14 @@ DISCORD_URL = 'https://discord.com/api/v8'
 USER_ID_URL = '/users/{user.id}'
 
 
-def get_User():
+def get_User(name, idUser, ):
     #Comprueba si el usuario esta en la base de datos
     #Devuelve los datos del usuario en forma de lista
     #Lo de abajo es un placeholder hasta que la base de datos este terminada
-    name = message.author
-    idUser = message.author.id
+    
     dinero = 1000
     pendent_orders = []
     historial = []
-
     user_data = [name, idUser, dinero, pendent_orders, historial]
     return user_data
 
